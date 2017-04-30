@@ -33,7 +33,7 @@ class PadawanNavigatorPlugin(object):
                 'line': line_num,
                 'column': column_num,
                 'path': current_path,
-                'navigationtype': 'find-parent'
+                'navigationtype': 'find-parents'
                 }
         result = self.do_request('navigate', params, contents)
 
