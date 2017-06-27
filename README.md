@@ -8,7 +8,7 @@ Install padawan.php
 ```
 git clone https://github.com/phux/padawan.php.git ~/padawan.php
 cd ~/padawan.php
-git checkout code-navigation
+git checkout code-navigator
 composer install
 ```
 
