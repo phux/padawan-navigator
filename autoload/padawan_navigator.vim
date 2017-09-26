@@ -21,17 +21,17 @@ function! padawan_navigator#PopulateList(candidates)
     let s:nav_bufnum = bufnr(g:PHPNavigatorBuffer)
     let s:previous_winnr = winnr()
     let l:baseFile = expand('%:t:r').'.'.expand('%:e')
-    let s:candidateFiles = []
+    let g:padawan_navigator_candidateFiles = []
     let l:candidateFqcns = []
 
     for candidate in a:candidates
         call add(l:candidateFqcns, substitute(candidate['fqcn'], '\\\\', '\\', 'g'))
-        call add(s:candidateFiles, substitute(candidate['file'], '^/', '', ''))
+        call add(g:padawan_navigator_candidateFiles, substitute(candidate['file'], '^/', '', ''))
     endfor
 
     if len(a:candidates) == 1
         call padawan_navigator#CloseWindow()
-        execute ":e ".s:candidateFiles[0]
+        execute ":e ".g:padawan_navigator_candidateFiles[0]
         return
     endif
 
@@ -39,7 +39,6 @@ function! padawan_navigator#PopulateList(candidates)
     if s:nav_bufnum > -1
         execute s:nav_bufnum.'bw'
     endif
-
 
     execute 'bo '.len(a:candidates).'new '.g:PHPNavigatorBuffer
 
@@ -68,9 +67,8 @@ function! padawan_navigator#PopulateList(candidates)
 endfunction
 
 function! s:SelectOption(index)
-    echom s:candidateFiles[a:index]
     execute ":".s:previous_winnr."wincmd w"
-    let l:selected = s:candidateFiles[a:index]
+    let l:selected = g:padawan_navigator_candidateFiles[a:index]
     execute ":e ".l:selected
 endfunction
 
