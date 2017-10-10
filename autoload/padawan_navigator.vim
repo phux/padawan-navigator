@@ -30,7 +30,10 @@ function! padawan_navigator#PopulateList(candidates)
     endfor
 
     if len(a:candidates) == 1
-        call padawan_navigator#CloseWindow()
+        try
+            call padawan_navigator#CloseWindow()
+        catch
+        endtry
         execute ":e ".g:padawan_navigator_candidateFiles[0]
         return
     endif
